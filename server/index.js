@@ -47,28 +47,6 @@ app.get("/query", async (req, res) => {
   res.status(200).send(response.data);
 });
 
-app.post("/token", async (req, res) => {
-  let { key, secret } = req.body;
-  console.log(key);
-  console.log(secret);
-  const response = await axios.post(
-    "https://api.oregonstate.edu/oauth2/token",
-    qs.stringify({
-      client_id: key,
-      client_secret: secret,
-      grant_type: "client_credentials",
-    }),
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
-  res.status(200).send({
-    token: response.data.access_token,
-  });
-});
-
 setToken().then(() => {
   app.listen(5000, () => console.log("starting on port 3000"));
 });
